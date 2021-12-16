@@ -1,0 +1,34 @@
+@import url(/src/Colors.module.css);
+
+.multi-select {
+    align-items: stretch;
+    border: 1px solid var(--steel-400);
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    color: var(--steel-200);
+    display: flex;
+    height: 2.5rem;
+    justify-content: space-between;
+    width: 25rem;
+}
+
+.multi-select-body {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    margin: 0 0.5rem;
+}
+
+.multi-select-chip {
+    background: var(--steel-200);
+}
+
+.multi-select-expand-button {
+    align-items: center;
+    border: none;
+    box-sizing: border-box;
+    display: flex;
+    height: 2.5rem;
+    justify-content: center;
+    width: 2.5rem;
+}

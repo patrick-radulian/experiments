@@ -1,0 +1,7 @@
+.multi-select-modal :global(.MuiGrid-item) {
+    padding: 0.5rem 1rem;
+}
+
+.multi-select-modal :global(.MuiGrid-item):hover {
+    background-color: var(--steel-800);
+}
