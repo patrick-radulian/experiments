@@ -34,7 +34,7 @@
     border: none;
     box-sizing: border-box;
     display: flex;
-    height: 2.5rem;
+    flex: 0 0 calc(2.5rem - 2px);
+    height: calc(2.5rem - 2px);
     justify-content: center;
-    width: 2.5rem;
 }
