@@ -1,10 +1,6 @@
 @import "~sanitize.css";
 @import "~sanitize.css/forms.css";
-@import "MuiOverrides.module.css";
-
-body {
-    background: #282c34;
-}
+@import "./theming/Colors.module.css";
 
 .app {
     width: 100vw;
@@ -32,7 +28,7 @@ body {
 
 .separator {
     margin: 0 0 3rem 0;
-    border-color: var(--steel-400);
+    /* border-color: var(--steel-400); */
 }
 
 main {

@@ -5,44 +5,38 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Checkbox, FormControlLabel, Grid } from "@mui/material";
-import styles from "./MultiSelectModal.module.css";
+
+export interface IMultiSelectOption {
+    label: string,
+    value: string
+}
 
 export interface IMultiSelectModal {
     open: boolean,
     title: string,
-    options: Array<{label: string, value: string}>,
+    options: Array<IMultiSelectOption>,
+    checkedOptions: Array<IMultiSelectOption>,
+    handleToggle: (option: IMultiSelectOption) => void,
     handleClose: () => void
 }
 
 export default function MultiSelectModal(props: IMultiSelectModal) {
-    const { open, title, options, handleClose } = props;
+    const { open, title, options, checkedOptions, handleToggle, handleClose } = props;
 
-    const [checked, setChecked] = React.useState<Array<string>>([]);
-
-    const handleToggle = (value: string) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-
-        setChecked(newChecked);
-    };
+    const onChange = (option: IMultiSelectOption) => () => handleToggle(option);
 
     return (
-        <Dialog className={styles["multi-select-modal"]} open={open} onClose={handleClose} maxWidth="lg">
+        <Dialog open={open} onClose={handleClose} maxWidth="lg">
             <DialogTitle>{title}</DialogTitle>
 
             <DialogContent dividers>
                 <Grid container spacing={2}>
                     {options.map(option => (
-                        <Grid item xs={4} onClick={handleToggle(option.value)} key={option.value}>
+                        <Grid item xs={4} key={option.value}>
                             <FormControlLabel
                                 control={
-                                    <Checkbox checked={checked.indexOf(option.value) !== -1}
+                                    <Checkbox checked={checkedOptions.indexOf(option) !== -1}
+                                        onChange={onChange(option)}
                                         tabIndex={-1}
                                         name={option.value}
                                         disableRipple

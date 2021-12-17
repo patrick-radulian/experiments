@@ -1,8 +1,0 @@
-:root :global(.MuiDialog-paper) {
-    background-color: var(--steel-900);
-    color: var(--steel-100)
-}
-
-:root :global(.MuiCheckbox-root) {
-    color: var(--steel-300);
-}

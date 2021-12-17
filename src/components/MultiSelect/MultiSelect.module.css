@@ -1,11 +1,17 @@
-@import url(/src/Colors.module.css);
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.multi-select-label {
+    margin: 0 1rem;
+}
 
 .multi-select {
     align-items: stretch;
-    border: 1px solid var(--steel-400);
+    border: 1px solid var(--grey-500);
     border-radius: 0.25rem;
     box-sizing: border-box;
-    color: var(--steel-200);
     display: flex;
     height: 2.5rem;
     justify-content: space-between;
@@ -19,8 +25,8 @@
     margin: 0 0.5rem;
 }
 
-.multi-select-chip {
-    background: var(--steel-200);
+:root .multi-select-chip {
+    background: var(--blueGrey-200);
 }
 
 .multi-select-expand-button {
