@@ -80,7 +80,7 @@ export const data = [
 		"value": "8137D960-B645-07E2-F444-837247EAA8FD"
 	},
 	{
-		"label": "Shaw, Jin P.",
+		"label": "Sh, Ji P.",
 		"value": "85383BB2-5CF4-111C-9955-C75624B23E64"
 	},
 	{

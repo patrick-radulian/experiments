@@ -8,7 +8,7 @@
 }
 
 .multi-select {
-    align-items: stretch;
+    align-items: center;
     border: 1px solid var(--grey-500);
     border-radius: 0.25rem;
     box-sizing: border-box;
@@ -18,15 +18,29 @@
     width: 25rem;
 }
 
+.multi-select-body-limiter {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
 .multi-select-body {
     align-items: center;
     display: flex;
     gap: 0.5rem;
     margin: 0 0.5rem;
+    background: palevioletred;
 }
 
-:root .multi-select-chip {
+.multi-select-chip {
     background: var(--blueGrey-200);
+}
+
+.extras {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
 }
 
 .multi-select-expand-button {

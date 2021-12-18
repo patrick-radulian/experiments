@@ -36,6 +36,16 @@ export const theme = createTheme({
                     }
                 }
             }
+        },
+        MuiChip: {
+            styleOverrides: {
+                root: {
+                    background: "var(--blueGrey-200)"
+                },
+                label: {
+                    // fontFamily: "Source Code Pro"
+                }
+            }
         }
     }
 });
