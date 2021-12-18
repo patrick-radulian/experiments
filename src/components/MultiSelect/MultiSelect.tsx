@@ -10,8 +10,8 @@ export default function MultiSelect() {
     const [bodyFull, setBodyFull] = React.useState(false);
     const [checkedOptions, setChecked] = React.useState<Array<IMultiSelectOption>>([]);
 
-    const multiSelect = React.createRef<HTMLDivElement>();
-    const multiSelectBody = React.createRef<HTMLDivElement>();
+    const multiSelect = React.useRef<HTMLDivElement>(null);
+    const multiSelectBody = React.useRef<HTMLDivElement>(null);
 
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -31,7 +31,7 @@ export default function MultiSelect() {
 
     React.useEffect(() => {
         if (!multiSelectBody.current || !multiSelect.current) return;
-        setBodyFull((multiSelectBody.current.offsetWidth + 38) > multiSelect.current.clientWidth);
+        setBodyFull((multiSelect.current?.clientWidth - 38) < (multiSelectBody.current?.clientWidth + 16))
     }, [open]);
 
     return (
