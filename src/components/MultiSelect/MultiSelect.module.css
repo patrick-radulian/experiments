@@ -20,16 +20,16 @@
 
 .multi-select-body-limiter {
     display: flex;
-    align-items: center;
     overflow: hidden;
+    height: 2.5rem;
 }
 
 .multi-select-body {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 0 0.5rem;
-    background: palevioletred;
+    margin: 0.5rem;
 }
 
 .multi-select-chip {

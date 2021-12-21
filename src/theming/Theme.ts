@@ -32,7 +32,8 @@ export const theme = createTheme({
                         padding: "0.25rem 1rem"
                     },
                     ".MuiFormControlLabel-root": {
-                        flex: 1
+                        flex: 1,
+                        whiteSpace: "nowrap"
                     }
                 }
             }
@@ -43,7 +44,7 @@ export const theme = createTheme({
                     background: "var(--blueGrey-200)"
                 },
                 label: {
-                    // fontFamily: "Source Code Pro"
+
                 }
             }
         }
