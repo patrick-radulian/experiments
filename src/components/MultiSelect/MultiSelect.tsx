@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./MultiSelect.module.css";
 import MultiSelectModal, { IMultiSelectOption } from "./MultiSelectModal";
-import { data } from "./data-short";
+import { data } from "./data";
 import { Chip } from "@mui/material";
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 
@@ -35,6 +35,10 @@ export default function MultiSelect() {
 
 
 
+    /*
+     * Before we do anything else, we run this side-effect after every render pass, in order to collect
+     * the total width of all chips in the select's body (which is equal to the number of checked options).
+     */
     React.useEffect(() => {
         totalChipsWidth.current = 0;
         chips.current.forEach(chip => totalChipsWidth.current += chip?.offsetWidth ?? 0);
@@ -44,40 +48,38 @@ export default function MultiSelect() {
 
 
 
-    /* Everytime we check an option and thus upgrade the checkedOptions array, we need to run this effect. */
+    /*
+     * Next we run this side-effect - but only when checkedOptions changes - which determines whether the select
+     * body is overflowing with chips, which means that we need to display the extra badge, indicating how
+     * many more options are checked but not actually visible on the screen.
+     */
     React.useEffect(() => {
         /*
-         * First, we want to compare the height of multiSelectBody and multiSelectBodyHeight.
-         *
-         * At this point, multiSelectBody (which contains all the chip elements representing checked options)
-         * has potentially grown in height, because it uses flex-wrap: wrap. This means that new Chip elements,
-         * which exceed the available horizontal space, will wrap around into a new line, causing multiSelectBody
-         * to grow vertically (even if we do not see it in the UI due to overflow: hidden).
-         *
-         * MultiSelectBodyHeight is a RefObject, which still contains multiSelectBody's original height, when it
-         * was only one line tall.
+         * First, calculate the total width occupied by all chips and add the container's flex-gap and margin to the sum.
+         * How many times the flex-gap needs to be added depends on the number of rendered chips.
+         * Gaps in flex containers are added in between each flex child, so this means the number of gaps to add is
+         * equal to (number of chips - 1).
+         * Additionally, we add the container's margin twice.
+         * In this example, both the flex-gap and container margin are styled with 0.5rem, which equals 8px each.
+         * This brings us to the final formula (totalChipsWidth.current + (checkedOptions.length + 1) * 8).
+         * This value is then compared with the container's maximum available width for chips.
          */
 
-        // if (!((multiSelectBody.current?.scrollHeight! + 16) > multiSelectBodyHeight.current!)) {
-        if (!((totalChipsWidth.current + (checkedOptions.length + 1) * 8) > multiSelectBodyLimiter.current!.offsetWidth)) {
+        if ((totalChipsWidth.current + (checkedOptions.length + 1) * 8) > multiSelectBodyLimiter.current!.offsetWidth) {
             /*
-             * If multiSelectBody has not yet grown vertically taller than its original height value, we can safely
-             * increase the counter for numberOfDisplayedOptions (which keeps track of how many Chip elements are
-             * really visible).
-             * Additionally, we need to make sure that bodyFull remains or is set to "false" at this point, otherwise
-             * the "additional options counter" element would already start appearing before Chips start wrapping around.
-             */
-
-            // numberOfDisplayedOptions.current = checkedOptions.length;
-            setBodyFull(false);
-        } else {
-            /*
-             * If, however, multiSelectBody's height has grown...which means that Chip elements have started wrapping
-             * around into a new line...we need to set bodyFull to "true" in order to show the "additional options counter"
-             * element.
+             * If the collective width of chips, gaps and container margin exceed the container's available maximum width
+             * for chips, we need to set 'bodyFull' to true to indicate that there are more options checked (and thus chips
+             * rendered) than fit the select's body.
              */
 
             setBodyFull(true);
+        } else {
+            /*
+             * If, however, the chips fit nicely into the select's body, we set 'bodyFull' to false and we don't need to display
+             * any indicator for hidden chips.
+             */
+
+            setBodyFull(false);
         }
 
 
@@ -87,6 +89,17 @@ export default function MultiSelect() {
 
 
 
+    /*
+     * Lastly, after every(!) render, we run this 3rd side-effect, to find out how many chips are visible on the screen.
+     * We do this by iterating over the chips MutableRefObject. This MutableRefObject is an array which contains references
+     * to the rendered chips as HTMLDivElements.
+     * We check at which index the first chip is positioned, which as an offsetTopValue higher than 0.
+     * This means that the chip is breaking into the next line (according to the container's flex-wrap rules).
+     * Therefore we can determine how many chips are visible and store that information in the numberOfVisibleChips state
+     * variable.
+     * This state variable is then ultimately used in the render function below to calculate and show how many chips are
+     * hidden from sight, using the formula (checkedOptions.length - numberOfVisibleChips).
+     */
     React.useEffect(() => {
         if (!bodyFull) return;
 
