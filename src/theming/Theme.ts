@@ -41,6 +41,7 @@ export const theme = createTheme({
         MuiChip: {
             styleOverrides: {
                 root: {
+                    position: "relative",
                     background: "var(--blueGrey-200)"
                 },
                 label: {
