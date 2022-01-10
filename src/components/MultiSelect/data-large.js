@@ -1,4 +1,4 @@
-export const data = [
+export const dataLarge = [
 	{
 		"label": "Massey, Paki F.",
 		"value": "23B663E3-1A6A-193B-AE7A-F7E6BB56457E"

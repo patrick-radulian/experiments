@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "./MultiSelect.module.css";
-import MultiSelectModal, { IMultiSelectOption } from "./MultiSelectModal";
-import { data } from "./data";
+import MultiSelectModal, { IMultiSelectOption, IOptions } from "./MultiSelectModal";
+import { dataLarge } from "./data-large";
+import { dataShort } from "./data-short";
 import { Chip } from "@mui/material";
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 
@@ -14,6 +15,7 @@ export default function MultiSelect() {
     const multiSelectBodyLimiter = React.useRef<HTMLDivElement>(null);
     const chips = React.useRef<Array<HTMLDivElement | null>>([]);
     const totalChipsWidth = React.useRef<number>(0);
+    const data = React.useRef<IOptions>({fewOptions: dataShort, manyOptions: dataLarge});
 
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -138,7 +140,7 @@ export default function MultiSelect() {
                 <button className={styles["multi-select-expand-button"]}><UnfoldMoreIcon fontSize="medium"/></button>
             </div>
 
-            <MultiSelectModal title="Multi-Select Options" handleClose={handleClose} handleToggle={handleToggle} checkedOptions={checkedOptions} open={open} options={data}/>
+            <MultiSelectModal title="Multi-Select Options" handleClose={handleClose} handleToggle={handleToggle} checkedOptions={checkedOptions} open={open} options={data.current}/>
         </div>
     )
 }
