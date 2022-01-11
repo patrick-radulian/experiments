@@ -1,12 +1,17 @@
 import React from "react";
-import styles from "./MultiSelect.module.css";
-import MultiSelectModal, { IMultiSelectOption, IOptions } from "./MultiSelectModal";
-import { dataLarge } from "./data-large";
-import { dataShort } from "./data-short";
+import multiSelectStyles from "./MultiSelect.module.css";
+import MultiSelectModal, { IMultiSelectOption } from "./MultiSelectModal";
 import { Chip } from "@mui/material";
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 
-export default function MultiSelect() {
+
+type MultiSelectProps = {
+    options: Array<IMultiSelectOption>,
+    styles?: React.CSSProperties
+}
+
+
+const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(({options, styles}, ref) => {
     const [open, setOpen] = React.useState(false);
     const [bodyFull, setBodyFull] = React.useState(false);
     const [checkedOptions, setChecked] = React.useState<Array<IMultiSelectOption>>([]);
@@ -15,9 +20,8 @@ export default function MultiSelect() {
     const multiSelectBodyLimiter = React.useRef<HTMLDivElement>(null);
     const chips = React.useRef<Array<HTMLDivElement | null>>([]);
     const totalChipsWidth = React.useRef<number>(0);
-    const data = React.useRef<IOptions>({fewOptions: dataShort, manyOptions: dataLarge});
 
-    const handleClickOpen = () => setOpen(true);
+    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleToggle = (option: IMultiSelectOption) => {
@@ -35,9 +39,7 @@ export default function MultiSelect() {
 
 
 
-
-
-    /*
+    /**
      * Before we do anything else, we run this side-effect after every render pass, in order to collect
      * the total width of all chips in the select's body (which is equal to the number of checked options).
      */
@@ -48,15 +50,13 @@ export default function MultiSelect() {
 
 
 
-
-
-    /*
+    /**
      * Next we run this side-effect - but only when checkedOptions changes - which determines whether the select
      * body is overflowing with chips, which means that we need to display the extra badge, indicating how
      * many more options are checked but not actually visible on the screen.
      */
     React.useEffect(() => {
-        /*
+        /**
          * First, calculate the total width occupied by all chips and add the container's flex-gap and margin to the sum.
          * How many times the flex-gap needs to be added depends on the number of rendered chips.
          * Gaps in flex containers are added in between each flex child, so this means the number of gaps to add is
@@ -68,7 +68,7 @@ export default function MultiSelect() {
          */
 
         if ((totalChipsWidth.current + (checkedOptions.length + 1) * 8) > multiSelectBodyLimiter.current!.offsetWidth) {
-            /*
+            /**
              * If the collective width of chips, gaps and container margin exceed the container's available maximum width
              * for chips, we need to set 'bodyFull' to true to indicate that there are more options checked (and thus chips
              * rendered) than fit the select's body.
@@ -76,7 +76,7 @@ export default function MultiSelect() {
 
             setBodyFull(true);
         } else {
-            /*
+            /**
              * If, however, the chips fit nicely into the select's body, we set 'bodyFull' to false and we don't need to display
              * any indicator for hidden chips.
              */
@@ -89,9 +89,7 @@ export default function MultiSelect() {
 
 
 
-
-
-    /*
+    /**
      * Lastly, after every(!) render, we run this 3rd side-effect, to find out how many chips are visible on the screen.
      * We do this by iterating over the chips MutableRefObject. This MutableRefObject is an array which contains references
      * to the rendered chips as HTMLDivElements.
@@ -113,34 +111,35 @@ export default function MultiSelect() {
 
 
 
-
-
     const setChipsRef = (chip: HTMLDivElement | null, index: number) => {
         chips.current[index] = chip;
     }
 
 
-    return (
-        <div className={styles.container}>
-            <label className={styles["multi-select-label"]}>Group members</label>
 
-            <div className={styles["multi-select"]} onClick={handleClickOpen}>
-                <div ref={multiSelectBodyLimiter} className={styles["multi-select-body-limiter"]}>
-                    <div className={styles["multi-select-body"]}>
+    return (
+        <div className={multiSelectStyles.container} style={styles}>
+            {/* <label className={styles["multi-select-label"]}>Group members</label> */}
+
+            <div ref={ref} className={multiSelectStyles["multi-select"]} onClick={handleOpen}>
+                <div ref={multiSelectBodyLimiter} className={multiSelectStyles["multi-select-body-limiter"]}>
+                    <div className={multiSelectStyles["multi-select-body"]}>
                         {checkedOptions.map((option, index) => (
-                            <Chip className={styles["multi-select-chip"]} label={option.label} size="small" key={option.value} ref={el => setChipsRef(el, index)}/>
+                            <Chip className={multiSelectStyles["multi-select-chip"]} label={option.label} size="small" key={option.value} ref={el => setChipsRef(el, index)}/>
                         ))}
                     </div>
 
-                    <div className={styles["extras"]}>
+                    <div className={multiSelectStyles["extras"]}>
                         {bodyFull && <Chip label={`+ ${checkedOptions.length - numberOfVisibleChips}`} size="small"/>}
                     </div>
                 </div>
 
-                <button className={styles["multi-select-expand-button"]}><UnfoldMoreIcon fontSize="medium"/></button>
+                <button className={multiSelectStyles["multi-select-expand-button"]}><UnfoldMoreIcon fontSize="medium"/></button>
             </div>
 
-            <MultiSelectModal title="Multi-Select Options" handleClose={handleClose} handleToggle={handleToggle} checkedOptions={checkedOptions} open={open} options={data.current}/>
+            <MultiSelectModal title="Multi-Select Options" handleClose={handleClose} handleToggle={handleToggle} checkedOptions={checkedOptions} open={open} options={options}/>
         </div>
     )
-}
+});
+
+export default MultiSelect;

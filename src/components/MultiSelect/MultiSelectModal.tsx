@@ -4,8 +4,9 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Checkbox, Grid, Switch, FormControlLabel, TextField, Box, InputAdornment, IconButton, Container } from "@mui/material";
+import { Checkbox, Grid, FormControlLabel, TextField, Box, InputAdornment, IconButton, Container } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+import CloseIcon from '@mui/icons-material/Close';
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 
 export interface IMultiSelectOption {
@@ -13,15 +14,10 @@ export interface IMultiSelectOption {
     value: string
 }
 
-export interface IOptions {
-    fewOptions: Array<IMultiSelectOption>,
-    manyOptions: Array<IMultiSelectOption>
-}
-
 export interface IMultiSelectModal {
     open: boolean,
     title: string,
-    options: IOptions,
+    options: Array<IMultiSelectOption>,
     checkedOptions: Array<IMultiSelectOption>,
     handleToggle: (option: IMultiSelectOption) => void,
     handleClose: () => void
@@ -32,15 +28,8 @@ export default function MultiSelectModal(props: IMultiSelectModal) {
 
     const onChange = (option: IMultiSelectOption) => () => handleToggle(option);
 
-    const [useManyOptions, setUseManyOptions] = React.useState<boolean>(false);
-    const [optionsToUse, setOptionsToUse] = React.useState<Array<IMultiSelectOption>>(options.fewOptions);
     const [optionsFilterValue, setOptionsFilterValue] = React.useState<string>("");
     const [filteredOptions, setFilteredOptions] = React.useState<Array<IMultiSelectOption>>([]);
-
-    const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
-        setUseManyOptions(checked);
-        setOptionsToUse(checked ? options.manyOptions : options.fewOptions);
-    }
 
     const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setOptionsFilterValue(event.target.value);
@@ -48,23 +37,29 @@ export default function MultiSelectModal(props: IMultiSelectModal) {
 
     const FilterFieldAdornment = () => {
         return (
-            <InputAdornment position="end">
-                <IconButton onClick={() => setOptionsFilterValue("")}>
-                    <ClearIcon/>
-                </IconButton>
-            </InputAdornment>
+            <>
+                {optionsFilterValue.length > 0 ? (
+                    <InputAdornment position="end">
+                        <IconButton onClick={() => setOptionsFilterValue("")}>
+                            <ClearIcon/>
+                        </IconButton>
+                    </InputAdornment>
+                ) : (
+                    null
+                )}
+            </>
         )
     }
 
     React.useEffect(() => {
-        setFilteredOptions(() => optionsToUse.filter(option => option.label.toLowerCase().includes(optionsFilterValue.toLowerCase())));
-    }, [optionsFilterValue, optionsToUse]);
+        setFilteredOptions(() => options.filter(option => option.label.toLowerCase().includes(optionsFilterValue.toLowerCase())));
+    }, [optionsFilterValue, options]);
 
     return (
         <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
             <DialogTitle sx={{display: "flex", justifyContent: "space-between"}}>
                 <span>{title}</span>
-                <FormControlLabel control={<Switch checked={useManyOptions} onChange={handleSwitch}/>} label="Use Many Options" />
+                <IconButton onClick={handleClose}><CloseIcon/></IconButton>
             </DialogTitle>
 
             <DialogContent dividers>

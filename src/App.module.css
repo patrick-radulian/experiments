@@ -3,9 +3,10 @@
 @import "./theming/Colors.module.css";
 
 .app {
-    width: 100vw;
+    background: var(--grey-100);
     height: 100vh;
     text-align: center;
+    width: 100vw;
 }
 
 .app-logo {
@@ -32,9 +33,19 @@
 }
 
 main {
+    align-items: center;
     display: flex;
     flex-direction: column;
+    gap: 2rem;
+}
+
+.card {
     align-items: center;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    width: 42rem;
 }
 
 .app-link {
