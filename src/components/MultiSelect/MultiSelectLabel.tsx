@@ -2,13 +2,11 @@ import React from 'react';
 
 type MultiSelectLabelProps = {
     children: React.ReactChild | React.ReactChildren
-    multiSelect: React.RefObject<HTMLDivElement | null>
+    htmlFor: React.RefObject<HTMLDivElement | null>
 }
 
-const MultiSelectLabel = ({children, multiSelect}: MultiSelectLabelProps) => {
-    const onClick = () => {
-        console.log("click")
-    }
+const MultiSelectLabel = ({children, htmlFor}: MultiSelectLabelProps) => {
+    const onClick = () => htmlFor.current?.click();
 
     return (
         <label onClick={onClick}>

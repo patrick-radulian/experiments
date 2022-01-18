@@ -119,8 +119,6 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(({options
 
     return (
         <div className={multiSelectStyles.container} style={styles}>
-            {/* <label className={styles["multi-select-label"]}>Group members</label> */}
-
             <div ref={ref} className={multiSelectStyles["multi-select"]} onClick={handleOpen}>
                 <div ref={multiSelectBodyLimiter} className={multiSelectStyles["multi-select-body-limiter"]}>
                     <div className={multiSelectStyles["multi-select-body"]}>

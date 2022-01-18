@@ -10,6 +10,7 @@ import { dataLarge } from './components/MultiSelect/data-large';
 import { dataShort } from './components/MultiSelect/data-short';
 
 
+
 function App() {
     const multiSelectRef_A = React.useRef<HTMLDivElement | null>(null);
     const multiSelectRef_B = React.useRef<HTMLDivElement | null>(null);
@@ -26,12 +27,12 @@ function App() {
 
                     <main>
                         <Card className={styles.card}>
-                            <MultiSelectLabel multiSelect={multiSelectRef_A}>Group Members (few options)</MultiSelectLabel>
+                            <MultiSelectLabel htmlFor={multiSelectRef_A}>Group Members (few options)</MultiSelectLabel>
                             <MultiSelect options={dataShort} ref={multiSelectRef_A} styles={{width: "20rem"}}/>
                         </Card>
 
                         <Card className={styles.card}>
-                            <MultiSelectLabel multiSelect={multiSelectRef_B}>Group Members (many options)</MultiSelectLabel>
+                            <MultiSelectLabel htmlFor={multiSelectRef_B}>Group Members (many options)</MultiSelectLabel>
                             <MultiSelect options={dataLarge} ref={multiSelectRef_B} styles={{width: "20rem"}}/>
                         </Card>
                     </main>
