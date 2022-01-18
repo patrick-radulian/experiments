@@ -4,14 +4,17 @@ import MultiSelectModal, { IMultiSelectOption } from "./MultiSelectModal";
 import { Chip } from "@mui/material";
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 
+export type MultiSelectForwardRef = {
+    handleOpen: () => void
+}
 
-type MultiSelectProps = {
+export type MultiSelectProps = {
     options: Array<IMultiSelectOption>,
     styles?: React.CSSProperties
 }
 
 
-const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(({options, styles}, ref) => {
+const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({options, styles}, ref) => {
     const [open, setOpen] = React.useState(false);
     const [bodyFull, setBodyFull] = React.useState(false);
     const [checkedOptions, setChecked] = React.useState<Array<IMultiSelectOption>>([]);
@@ -36,6 +39,24 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(({options
 
         setChecked(newChecked);
     };
+
+
+
+
+
+    /**
+     * Here we have to use an imperative handle to store a reference to the handleOpen method in the forwardRef
+     * object. The handleOpen method is thus exposed to the outside environment which instantiates this
+     * <MultiSelect> option. This allows us to pass the method through to the <MultiSelectLabel> component, which
+     * is used as a sibling of <MultiSelect> (see App.tsx), which allows us to use handleOpen as a handler for
+     * the onClick event on the label that is associated with the <MultiSelect>.
+     * This way we can detatch the label from the multiSelect, allowing us to place both elements wherever we want.
+     */
+    React.useImperativeHandle(ref, () => ({
+        handleOpen
+    }));
+
+
 
 
 
@@ -119,7 +140,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(({options
 
     return (
         <div className={multiSelectStyles.container} style={styles}>
-            <div ref={ref} className={multiSelectStyles["multi-select"]} onClick={handleOpen}>
+            <div className={multiSelectStyles["multi-select"]} onClick={handleOpen}>
                 <div ref={multiSelectBodyLimiter} className={multiSelectStyles["multi-select-body-limiter"]}>
                     <div className={multiSelectStyles["multi-select-body"]}>
                         {checkedOptions.map((option, index) => (

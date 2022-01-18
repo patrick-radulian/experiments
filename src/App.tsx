@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import styles from './App.module.css';
-import MultiSelect from './components/MultiSelect/MultiSelect';
+import MultiSelect, { MultiSelectForwardRef } from './components/MultiSelect/MultiSelect';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from './theming/Theme';
 import { Card } from '@mui/material';
@@ -12,8 +12,8 @@ import { dataShort } from './components/MultiSelect/data-short';
 
 
 function App() {
-    const multiSelectRef_A = React.useRef<HTMLDivElement | null>(null);
-    const multiSelectRef_B = React.useRef<HTMLDivElement | null>(null);
+    const multiSelectRef_A = React.useRef<MultiSelectForwardRef | null>(null);
+    const multiSelectRef_B = React.useRef<MultiSelectForwardRef | null>(null);
 
     return (
         <React.StrictMode>
