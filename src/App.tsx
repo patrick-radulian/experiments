@@ -6,8 +6,8 @@ import { ThemeProvider } from '@emotion/react';
 import { theme } from './theming/Theme';
 import { Card } from '@mui/material';
 import MultiSelectLabel from './components/MultiSelect/MultiSelectLabel';
-import { dataLarge } from './components/MultiSelect/data-large';
-import { dataShort } from './components/MultiSelect/data-short';
+import { dataLarge } from './data-large';
+import { dataShort } from './data-short';
 
 
 
