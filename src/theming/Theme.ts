@@ -1,6 +1,12 @@
 import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
+    typography: {
+        fontFamily: ["Cormorant Garamond", "serif"].join(","),
+        h6: {
+            fontFamily: ["Montserrat", "sans-serif"].join(",")
+        }
+    },
     palette: {
         mode: "light",
         primary: {
@@ -28,8 +34,8 @@ export const theme = createTheme({
             styleOverrides: {
                 item: {
                     "&.MuiGrid-item": {
-                        display: "flex",
-                        padding: "0.25rem 1rem"
+                        // display: "flex",
+                        // padding: "0.25rem 1rem"
                     },
                     ".MuiFormControlLabel-root": {
                         flex: 1,
