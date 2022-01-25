@@ -4,31 +4,27 @@ import './index.css';
 import App from './App/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Selects from './routes/Selects';
-import Forms from './routes/Forms';
-import Validation from './routes/Validation';
-import Trees from './routes/Trees';
 import OtherExperiments from './routes/other-experiments';
 import UIExperiments from './routes/ui-experiments';
+import Selects from './routes/selects';
+import Forms from './routes/forms';
+import Validation from './routes/validation';
+import Trees from './routes/trees';
 
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
-
     <React.StrictMode>
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<App/>}>
-                    <Route path="ui-experiments" element={<UIExperiments/>}>
-                        <Route path="selects" element={<Selects/>}/>
-                        <Route path="forms" element={<Forms/>}/>
-                        <Route path="validation" element={<Validation/>}/>
-                        <Route path="trees" element={<Trees/>}/>
-                    </Route>
+                    <Route path="ui-experiments" element={<UIExperiments/>}/>
+                    <Route path="ui-experiments/selects" element={<Selects/>}/>
+                    <Route path="ui-experiments/forms" element={<Forms/>}/>
+                    <Route path="ui-experiments/validation" element={<Validation/>}/>
+                    <Route path="ui-experiments/trees" element={<Trees/>}/>
 
-                    <Route path="other-experiments" element={<OtherExperiments/>}>
-
-                    </Route>
+                    <Route path="other-experiments" element={<OtherExperiments/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

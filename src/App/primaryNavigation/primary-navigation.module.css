@@ -1,0 +1,62 @@
+nav.primary {
+    align-items: center;
+    color: var(--grey-600);
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    max-width: 50vw;
+    padding: 3rem 0;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    flex: 1;
+}
+
+.nav-link-home {
+
+}
+
+.logo {
+    color: var(--grey-500);
+    font-size: 2rem;
+}
+
+.logo-image {
+    height: 6rem;
+    pointer-events: none;
+    filter: saturate(0) brightness(0.95);
+}
+
+
+
+
+
+@media screen and (max-width: 600px) {
+    nav.primary {
+        display: none;
+    }
+}
+
+
+
+
+
+@media (prefers-reduced-motion: no-preference) {
+    .logo-image {
+        animation: logo-spin infinite 60s linear;
+    }
+}
+
+
+
+
+
+@keyframes logo-spin {
+    from {
+        transform: rotateZ(0);
+    }
+    to {
+        transform: rotateZ(360deg);
+    }
+}

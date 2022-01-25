@@ -1,0 +1,14 @@
+nav.secondary {
+    background: var(--grey-900);
+    display: none;
+}
+
+
+
+
+
+@media screen and (max-width: 600px) {
+    nav.secondary {
+        display: block;
+    }
+}

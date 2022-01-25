@@ -1,10 +1,10 @@
 import React from 'react';
-import logo from '../images/logo.svg';
 import styles from './App.module.css';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '../theming/Theme';
-import { Link, Typography } from '@mui/material';
-import { Link as RouterLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import AppHeader from './appHeader/app-header';
+import HeroImage from './heroImage/hero-image';
 
 
 
@@ -13,40 +13,20 @@ function App() {
         <React.StrictMode>
             <ThemeProvider theme={theme}>
                 <div className={styles.app}>
-                    <header className={styles.header}>
-                        <nav className={styles.primary}>
-                            <Link className={styles['nav-link']} component={RouterLink} to="ui-experiments" underline="hover" color="inherit">UI Experiments</Link>
+                    <AppHeader/>
 
-                            <Link className={`${styles['nav-link']} ${styles['nav-link-home']}`} component={RouterLink} to="/" underline="none" color="inherit" m="0 2rem">
-                                <div className={styles.logo}>
-                                    <img src={logo} className={styles['logo-image']} alt="logo" />
-                                    <Typography variant="h6">Experiments</Typography>
-                                </div>
-                            </Link>
-
-                            <Link className={styles['nav-link']} component={RouterLink} to="other-experiments" underline="hover" color="inherit">Other Experiments</Link>
-                        </nav>
-
-                        <nav className={styles.secondary}>
-                            <Link className={`${styles['nav-link']} ${styles['nav-link-home']}`} component={RouterLink} to="/" underline="none" color="inherit" m="0 2rem">
-                                <div className={styles.logo}>
-                                    <img src={logo} className={styles['logo-image']} alt="logo" />
-                                    <Typography variant="h6">Experiments</Typography>
-                                </div>
-                            </Link>
-                        </nav>
-                    </header>
-
-                    <div className={styles['hero-image']}/>
+                    <HeroImage/>
 
                     <main>
                         <Outlet/>
                     </main>
+
+                    <footer>
+                        <span>Patrick Radulian</span>
+                    </footer>
                 </div>
 
-                <footer>
-                    <span>Patrick Radulian</span>
-                </footer>
+                <div className={styles['app-background']}/>
             </ThemeProvider>
         </React.StrictMode>
 

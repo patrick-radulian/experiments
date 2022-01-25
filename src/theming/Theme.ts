@@ -2,10 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
     typography: {
-        fontFamily: ["Cormorant Garamond", "serif"].join(","),
-        h6: {
-            fontFamily: ["Montserrat", "sans-serif"].join(",")
-        }
+        fontFamily: ["Montserrat", "sans-serif"].join(",")
     },
     palette: {
         mode: "light",
@@ -53,6 +50,15 @@ export const theme = createTheme({
                 label: {
 
                 }
+            }
+        },
+        MuiInputBase: {
+            styleOverrides: {
+                root: {
+                    "& .MuiInputBase-inputSizeSmall": {
+                        padding: "12.5px 14px",
+                    }
+                },
             }
         }
     }

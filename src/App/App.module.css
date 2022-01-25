@@ -3,68 +3,29 @@
 @import "../theming/Colors.module.css";
 
 .app {
-    background: white;
-    display: flex;
-    flex-direction: column;
-    filter: drop-shadow(0 4px 6px #00000030);
-    height: 100%;
-    text-align: center;
-    margin: 0 5vw;
+    background: var(--grey-50);
+    display: grid;
+    grid-template-rows: 250px 250px auto min-content;
+    position: relative;
+    width: 1200px;
+    z-index: 1;
 }
 
-.header {
-    display: flex;
-    justify-content: center;
-}
-
-nav.primary {
-    align-items: center;
-    color: var(--grey-600);
-    display: flex;
-    flex: 1;
-    justify-content: space-around;
-    max-width: 50vw;
-    padding: 3rem 0;
-    text-transform: uppercase;
-}
-
-.nav.secondary {
-    background: var(--grey-900);
-}
-
-.nav-link {
-    flex: 1;
-}
-
-.nav-link-home {
-
-}
-
-.logo {
-    color: var(--grey-500);
-    font-family: "Cormorant Garamond", sans-serif;
-    font-size: 2rem;
-}
-
-.logo-image {
-    height: 6rem;
-    pointer-events: none;
-    filter: saturate(0) brightness(0.95);
-}
-
-.hero-image {
-    height: 30vh;
-    margin: 0 5vw;
-    background: url(../images/Experiments.jpg) center;
+.app-body {
+    background: var(--grey-50);
+    display: grid;
+    grid-template-rows: 250px 250px auto min-content;
+    position: relative;
+    width: 1200px;
+    z-index: 1;
 }
 
 main {
-    flex: 1;
-    margin: -2rem 2rem 2rem;
+
 }
 
-.card {
-
+.hero-image {
+    background: url(../images/Experiments.jpg) center;
 }
 
 footer {
@@ -72,19 +33,24 @@ footer {
     color: var(--grey-300);
     font-family: 'Montserrat';
     font-size: 0.75rem;
+    margin-top: 2rem;
     padding: 0.5rem 0;
     text-align: center;
 }
 
-
-
-
-
-@media (prefers-reduced-motion: no-preference) {
-    .logo-image {
-        animation: logo-spin infinite 60s linear;
-    }
+.app-background {
+    background: linear-gradient(to bottom left, #0d1725, transparent),
+        linear-gradient(to bottom right, #040609, transparent),
+        linear-gradient(to top left, #2e313c, transparent),
+        linear-gradient(to top right, #a3bfd7, transparent);
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 0;
 }
+
 
 
 
@@ -93,26 +59,5 @@ footer {
     .app {
         filter: unset;
         margin: 0;
-    }
-
-    nav.primary {
-        display: none;
-    }
-
-    nav.secondary {
-        display: block;
-    }
-}
-
-
-
-
-
-@keyframes logo-spin {
-    from {
-        transform: rotateZ(0);
-    }
-    to {
-        transform: rotateZ(360deg);
     }
 }

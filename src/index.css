@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat&family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Source+Code+Pro&display=swap');
 
 html {
     height: 100%;
@@ -15,5 +15,7 @@ code {
 }
 
 #root {
-    height: 100%;
+    display: grid;
+    justify-content: space-around;
+    min-height: 100%;
 }
