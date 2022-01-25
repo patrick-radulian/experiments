@@ -2,8 +2,10 @@ import { Box, Card, Container, Grid, InputLabel, TextField } from "@mui/material
 import React from "react";
 import MultiSelect, { MultiSelectForwardRef } from "../components/MultiSelect/MultiSelect";
 import MultiSelectLabel from "../components/MultiSelect/MultiSelectLabel";
-import { dataLarge } from "../data-large";
-import { dataShort } from "../data-short";
+import { MultiSelectOptions } from "../components/MultiSelect/MultiSelectOptions";
+import { dataLarge } from "../mockData/data-large";
+import { dataShort } from "../mockData/data-short";
+import { priviledges } from "../mockData/priviledges";
 
 type ValidityField = {
     valid: boolean,
@@ -11,27 +13,40 @@ type ValidityField = {
 }
 
 type Validity = {
-    groupName: ValidityField,
-    description: ValidityField
+    groupNameA: ValidityField,
+    descriptionA: ValidityField,
+    groupNameB: ValidityField,
+    descriptionB: ValidityField
 }
 
 const Selects = () => {
-    const multiSelectRef_A = React.useRef<MultiSelectForwardRef | null>(null);
-    const multiSelectRef_B = React.useRef<MultiSelectForwardRef | null>(null);
+    const multiSelectRef_A1 = React.useRef<MultiSelectForwardRef | null>(null);
+    const multiSelectRef_B1 = React.useRef<MultiSelectForwardRef | null>(null);
+    const multiSelectRef_A2 = React.useRef<MultiSelectForwardRef | null>(null);
+    const multiSelectRef_B2 = React.useRef<MultiSelectForwardRef | null>(null);
 
-    const [validity, setValidity] = React.useState<Validity>({groupName: {valid: true, helperText: ""}, description: {valid: true, helperText: ""}});
+    const asdf = new MultiSelectOptions([{label: "asdf", value: "qwer"}]);
 
-    const validationFunction = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const [validity, setValidity] = React.useState<Validity>({
+        groupNameA: {valid: true, helperText: ""},
+        descriptionA: {valid: true, helperText: ""},
+        groupNameB: {valid: true, helperText: ""},
+        descriptionB: {valid: true, helperText: ""}
+    });
+
+    const validationFunction = (field: keyof Validity, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const isValid = !event.target.value.includes("$");
 
         setValidity({
             ...validity,
-            [event.target.id]: {
+            [field]: {
                 valid: isValid,
                 helperText: isValid ? "" : "Here is a little help, buddy"
             }
         });
     }
+
+    console.log(priviledges);
 
     return (
         <Box padding={4}>
@@ -39,17 +54,21 @@ const Selects = () => {
                 <Grid item md={6} sm={12}>
                     <Container maxWidth="sm">
                         <Card sx={{padding: 2}}>
-                            <Box my={4}>
+                            <Box mb={3}>
                                 <InputLabel htmlFor="groupName">Group name</InputLabel>
-                                <TextField id="groupName" size="small" error={!validity.groupName.valid} helperText={validity.groupName.helperText} fullWidth onChange={e => validationFunction(e)}/>
+                                <TextField id="groupName" size="small" error={!validity.groupNameA.valid} helperText={validity.groupNameA.helperText} fullWidth onChange={e => validationFunction("groupNameA", e)}/>
                             </Box>
-                            <Box my={4}>
+                            <Box mb={3}>
                                 <InputLabel htmlFor="description">Description</InputLabel>
-                                <TextField id="description" size="small" error={!validity.description.valid} helperText={validity.description.helperText} fullWidth onChange={e => validationFunction(e)}/>
+                                <TextField id="description" size="small" error={!validity.descriptionA.valid} helperText={validity.descriptionA.helperText} fullWidth onChange={e => validationFunction("descriptionA", e)}/>
                             </Box>
-                            <Box my={4}>
-                                <MultiSelectLabel htmlFor={multiSelectRef_A}>Group Members (few options)</MultiSelectLabel>
-                                <MultiSelect options={dataShort} ref={multiSelectRef_A} styles={{width: "20rem"}}/>
+                            <Box mb={3}>
+                                {/* <MultiSelectLabel htmlFor={multiSelectRef_A1}>Members (few options)</MultiSelectLabel>
+                                <MultiSelect options={dataShort} ref={multiSelectRef_A1} styles={{width: "20rem"}}/> */}
+                            </Box>
+                            <Box mb={3}>
+                                <MultiSelectLabel htmlFor={multiSelectRef_B1}>Priviledges</MultiSelectLabel>
+                                <MultiSelect options={priviledges} ref={multiSelectRef_B1} styles={{width: "20rem"}}/>
                             </Box>
                         </Card>
                     </Container>
@@ -59,8 +78,10 @@ const Selects = () => {
                     <Card sx={{width: 500}}>
                         <TextField label="Group Name"/>
                         <TextField label="Description"/>
-                        <MultiSelectLabel htmlFor={multiSelectRef_B}>Group Members (many options)</MultiSelectLabel>
-                        <MultiSelect options={dataLarge} ref={multiSelectRef_B} styles={{width: "20rem"}}/>
+                        {/* <MultiSelectLabel htmlFor={multiSelectRef_A2}>Members (many options)</MultiSelectLabel>
+                        <MultiSelect options={dataLarge} ref={multiSelectRef_A2} styles={{width: "20rem"}}/>
+                        <MultiSelectLabel htmlFor={multiSelectRef_B2}>Priviledges</MultiSelectLabel>
+                        <MultiSelect options={asdf} ref={multiSelectRef_B2} styles={{width: "20rem"}}/> */}
                     </Card>
                 </Grid>
             </Grid>

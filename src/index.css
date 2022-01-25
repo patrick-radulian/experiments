@@ -5,7 +5,9 @@ html {
 }
 
 body {
-    background: var(--grey-200);
+    /* background: var(--grey-200); */
+    background: url("./images/Room C.jpg");
+    background-size: cover;
     font-family: "Montserrat", serif;
     height: 100%;
 }

@@ -1,15 +1,18 @@
 import React from "react";
 import multiSelectStyles from "./MultiSelect.module.css";
-import MultiSelectModal, { IMultiSelectOption } from "./MultiSelectModal";
+import MultiSelectModal from "./MultiSelectModal";
 import { Chip } from "@mui/material";
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
+import { MultiSelectOption, MultiSelectOptions } from "./MultiSelectOptions";
+import { MultiSelectOptionGroups } from "./MultiSelectOptionGroups";
 
 export type MultiSelectForwardRef = {
     handleOpen: () => void
 }
 
 export type MultiSelectProps = {
-    options: Array<IMultiSelectOption>,
+    // options: Array<MultiSelectOption | MultiSelectOptionGroup>,
+    options: MultiSelectOptions | MultiSelectOptionGroups,
     styles?: React.CSSProperties
 }
 
@@ -17,7 +20,7 @@ export type MultiSelectProps = {
 const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({options, styles}, ref) => {
     const [open, setOpen] = React.useState(false);
     const [bodyFull, setBodyFull] = React.useState(false);
-    const [checkedOptions, setChecked] = React.useState<Array<IMultiSelectOption>>([]);
+    const [checkedOptions, setChecked] = React.useState<Array<MultiSelectOption>>([]);
     const [numberOfVisibleChips, setNumberOfVisibleChips] = React.useState<number>(0);
 
     const multiSelectBodyLimiter = React.useRef<HTMLDivElement>(null);
@@ -27,7 +30,7 @@ const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const handleToggle = (option: IMultiSelectOption) => {
+    const handleToggle = (option: MultiSelectOption) => {
         const currentIndex = checkedOptions.indexOf(option);
         const newChecked = [...checkedOptions];
 
@@ -156,7 +159,7 @@ const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({
                 <button className={multiSelectStyles["multi-select-expand-button"]}><UnfoldMoreIcon fontSize="medium"/></button>
             </div>
 
-            <MultiSelectModal title="Multi-Select Options" handleClose={handleClose} handleToggle={handleToggle} checkedOptions={checkedOptions} open={open} options={options}/>
+            <MultiSelectModal title="Multi-Select Options" handleClose={handleClose} handleToggle={handleToggle} checkedOptions={checkedOptions} open={open} data={options}/>
         </div>
     )
 });

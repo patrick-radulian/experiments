@@ -1,6 +1,6 @@
 nav.primary {
     align-items: center;
-    color: var(--grey-600);
+    color: var(--grey-300);
     display: flex;
     flex: 1;
     justify-content: space-around;
@@ -18,14 +18,13 @@ nav.primary {
 }
 
 .logo {
-    color: var(--grey-500);
     font-size: 2rem;
 }
 
 .logo-image {
     height: 6rem;
     pointer-events: none;
-    filter: saturate(0) brightness(0.95);
+    filter: saturate(0) brightness(1.15);
 }
 
 

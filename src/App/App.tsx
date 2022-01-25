@@ -26,7 +26,7 @@ function App() {
                     </footer>
                 </div>
 
-                <div className={styles['app-background']}/>
+                {/* <div className={styles['app-background']}/> */}
             </ThemeProvider>
         </React.StrictMode>
 
