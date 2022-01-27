@@ -1,5 +1,5 @@
-import PrimaryNavigation from "../primaryNavigation/primary-navigation";
-import SecondaryNavigation from "../secondaryNavigation/secondary-navigation";
+import PrimaryNavigation from "../primary-navigation/primary-navigation";
+import SecondaryNavigation from "../secondary-navigation/secondary-navigation";
 import styles from "./app-header.module.css"
 
 const AppHeader = () => {

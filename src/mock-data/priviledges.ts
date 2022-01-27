@@ -1,4 +1,4 @@
-import { MultiSelectOptionGroups } from "../components/MultiSelect/MultiSelectOptionGroups"
+import { MultiSelectOptionGroups } from "../components/multi-select/multi-select-option-groups"
 
 export const priviledges = new MultiSelectOptionGroups([
     {

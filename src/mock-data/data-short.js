@@ -1,4 +1,4 @@
-import { MultiSelectOptions } from "../components/MultiSelect/MultiSelectOptions"
+import { MultiSelectOptions } from "../components/multi-select/multi-select-options"
 
 export const dataShort = new MultiSelectOptions([
 	{

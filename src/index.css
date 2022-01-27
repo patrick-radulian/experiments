@@ -1,14 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;700&family=Source+Code+Pro&display=swap');
 
 html {
     height: 100%;
 }
 
 body {
-    /* background: var(--grey-200); */
-    background: url("./images/Room C.jpg");
+    background: url("./images/Room A.jpg");
     background-size: cover;
-    font-family: "Montserrat", serif;
+    font-family: "Rajdhani", sans-serif;
     height: 100%;
 }
 

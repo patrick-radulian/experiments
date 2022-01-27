@@ -1,5 +1,5 @@
 import React from 'react';
-import { MultiSelectForwardRef } from './MultiSelect';
+import { MultiSelectForwardRef } from './multi-select';
 
 type MultiSelectLabelProps = {
     children: React.ReactChild | React.ReactChildren

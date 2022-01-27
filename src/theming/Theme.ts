@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
     typography: {
-        fontFamily: ["Montserrat", "sans-serif"].join(",")
+        fontFamily: ["Rajdhani", "sans-serif"].join(",")
     },
     palette: {
         mode: "light",

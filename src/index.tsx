@@ -4,12 +4,12 @@ import './index.css';
 import App from './App/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import OtherExperiments from './routes/other-experiments';
-import UIExperiments from './routes/ui-experiments';
-import Selects from './routes/selects';
-import Forms from './routes/forms';
-import Validation from './routes/validation';
-import Trees from './routes/trees';
+import OtherExperiments from './routes/other-experiments/other-experiments';
+import UIExperiments from './routes/ui-experiments/ui-experiments';
+import Selects from './routes/selects/selects';
+import Forms from './routes/forms/forms';
+import Validation from './routes/validation/validation';
+import Trees from './routes/trees/trees';
 
 const rootElement = document.getElementById('root');
 

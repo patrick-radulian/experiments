@@ -1,17 +1,16 @@
 import React from "react";
-import multiSelectStyles from "./MultiSelect.module.css";
-import MultiSelectModal from "./MultiSelectModal";
+import multiSelectStyles from "./multi-select.module.css";
+import MultiSelectModal from "./multi-select-modal";
 import { Chip } from "@mui/material";
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
-import { MultiSelectOption, MultiSelectOptions } from "./MultiSelectOptions";
-import { MultiSelectOptionGroups } from "./MultiSelectOptionGroups";
+import { MultiSelectOption, MultiSelectOptions } from "./multi-select-options";
+import { MultiSelectOptionGroups } from "./multi-select-option-groups";
 
 export type MultiSelectForwardRef = {
     handleOpen: () => void
 }
 
 export type MultiSelectProps = {
-    // options: Array<MultiSelectOption | MultiSelectOptionGroup>,
     options: MultiSelectOptions | MultiSelectOptionGroups,
     styles?: React.CSSProperties
 }

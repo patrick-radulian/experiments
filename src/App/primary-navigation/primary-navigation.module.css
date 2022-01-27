@@ -1,8 +1,10 @@
 nav.primary {
     align-items: center;
-    color: var(--grey-300);
+    color: var(--grey-100);
     display: flex;
     flex: 1;
+    font-size: 1.5rem;
+    font-weight: 500;
     justify-content: space-around;
     max-width: 50vw;
     padding: 3rem 0;
@@ -18,13 +20,13 @@ nav.primary {
 }
 
 .logo {
-    font-size: 2rem;
+
 }
 
 .logo-image {
     height: 6rem;
     pointer-events: none;
-    filter: saturate(0) brightness(1.15);
+    filter: saturate(0) brightness(1.25);
 }
 
 
@@ -43,7 +45,7 @@ nav.primary {
 
 @media (prefers-reduced-motion: no-preference) {
     .logo-image {
-        animation: logo-spin infinite 60s linear;
+        animation: logo-spin infinite 90s linear;
     }
 }
 

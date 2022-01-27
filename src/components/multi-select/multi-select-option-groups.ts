@@ -1,4 +1,4 @@
-import { MultiSelectOption } from "./MultiSelectOptions";
+import { MultiSelectOption } from "./multi-select-options";
 
 export type MultiSelectGroups = Array<MultiSelectGroup>
 export type MultiSelectGroup = {label: string, options: Array<MultiSelectOption>}
