@@ -75,14 +75,16 @@ const Selects = () => {
                 </Grid>
 
                 <Grid item md={6} sm={12}>
-                    <Card sx={{width: 500}}>
-                        <TextField label="Group Name"/>
-                        <TextField label="Description"/>
-                        <MultiSelectLabel htmlFor={multiSelectRef_A2}>Members (many options)</MultiSelectLabel>
-                        <MultiSelect options={dataLarge} ref={multiSelectRef_A2} styles={{width: "20rem"}}/>
-                        <MultiSelectLabel htmlFor={multiSelectRef_B2}>Priviledges</MultiSelectLabel>
-                        <MultiSelect options={asdf} ref={multiSelectRef_B2} styles={{width: "20rem"}}/>
-                    </Card>
+                    <Container maxWidth="sm">
+                        <Card sx={{width: 500}}>
+                            <TextField label="Group Name"/>
+                            <TextField label="Description"/>
+                            <MultiSelectLabel htmlFor={multiSelectRef_A2}>Members (many options)</MultiSelectLabel>
+                            <MultiSelect options={dataLarge} ref={multiSelectRef_A2} styles={{width: "20rem"}}/>
+                            <MultiSelectLabel htmlFor={multiSelectRef_B2}>Priviledges</MultiSelectLabel>
+                            <MultiSelect options={asdf} ref={multiSelectRef_B2} styles={{width: "20rem"}}/>
+                        </Card>
+                    </Container>
                 </Grid>
             </Grid>
         </Box>
