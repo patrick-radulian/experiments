@@ -1,0 +1,8 @@
+div.card {
+    background: linear-gradient(to top left, rgb(255 255 255 / 10%), rgb(255 255 255 / 20%), rgb(255 255 255 / 10%));
+    backdrop-filter: blur(8px);
+    box-shadow: 1px 0 0 rgb(255 255 255 / 20%) inset, 0 1px 0 rgb(255 255 255 / 20%) inset, 0 0 40px rgb(0 0 0 / 10%);
+    height: 250px;
+    width: 250px;
+    padding: 0.5rem;
+}
