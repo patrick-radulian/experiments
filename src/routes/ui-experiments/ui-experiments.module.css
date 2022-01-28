@@ -5,15 +5,4 @@ div.card {
     height: 250px;
     width: 250px;
     padding: 0.5rem;
-
-    animation: card-spawn-animation 0.3s ease-out forwards;
-}
-
-@keyframes card-spawn-animation {
-    0% {
-        transform: scale(0);
-    }
-    100% {
-        transform: scale(1);
-    }
 }

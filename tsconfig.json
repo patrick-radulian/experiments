@@ -22,13 +22,13 @@
     "plugins": [
       {
         "name": "typescript-plugin-css-modules",
-        "options": {
-          // "classnameTransform": "camelCase"
-        }
+        "options": {}
       }
-    ]
+    ],
+    "baseUrl": "./src"
   },
   "include": [
-    "src"
-, "webpack.config.js"  ]
+    "src",
+    "webpack.config.js"
+  ]
 }

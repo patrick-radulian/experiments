@@ -12,11 +12,12 @@ export type MultiSelectForwardRef = {
 
 export type MultiSelectProps = {
     options: MultiSelectOptions | MultiSelectOptionGroups,
-    styles?: React.CSSProperties
+    styles?: React.CSSProperties,
+    fullWidth?: boolean
 }
 
 
-const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({options, styles}, ref) => {
+const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({options, styles, fullWidth}, ref) => {
     const [open, setOpen] = React.useState(false);
     const [bodyFull, setBodyFull] = React.useState(false);
     const [checkedOptions, setChecked] = React.useState<Array<MultiSelectOption>>([]);
@@ -141,17 +142,17 @@ const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({
 
 
     return (
-        <div className={multiSelectStyles.container} style={styles}>
+        <div className={multiSelectStyles.container} style={{...styles, width: fullWidth ? "100%" : "auto"}}>
             <div className={multiSelectStyles["multi-select"]} onClick={handleOpen}>
                 <div ref={multiSelectBodyLimiter} className={multiSelectStyles["multi-select-body-limiter"]}>
                     <div className={multiSelectStyles["multi-select-body"]}>
                         {checkedOptions.map((option, index) => (
-                            <Chip className={multiSelectStyles["multi-select-chip"]} label={option.label} size="small" key={option.value} ref={el => setChipsRef(el, index)}/>
+                            <Chip className={multiSelectStyles["multi-select-chip"]} label={option.label} size="medium" key={option.value} ref={el => setChipsRef(el, index)}/>
                         ))}
                     </div>
 
                     <div className={multiSelectStyles["extras"]}>
-                        {bodyFull && <Chip label={`+ ${checkedOptions.length - numberOfVisibleChips}`} size="small"/>}
+                        {bodyFull && <Chip label={`+ ${checkedOptions.length - numberOfVisibleChips}`} size="medium"/>}
                     </div>
                 </div>
 

@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-export const theme = createTheme({
+export const AppTheme = createTheme({
     typography: {
         fontFamily: ["Rajdhani", "sans-serif"].join(",")
     },
@@ -43,21 +43,23 @@ export const theme = createTheme({
         },
         MuiChip: {
             styleOverrides: {
-                root: {
-                    position: "relative",
-                    background: "var(--blueGrey-200)"
-                },
-                label: {
-
+                sizeMedium: {
+                    "&.MuiChip-root": {
+                        fontSize: "0.9rem",
+                        height: "28px"
+                    }
                 }
             }
         },
         MuiInputBase: {
             styleOverrides: {
                 root: {
-                    "& .MuiInputBase-inputSizeSmall": {
+                    "& .MuiInputBase-input": {
                         padding: "12.5px 14px",
-                    }
+                    },
+                    "& .MuiInputBase-inputSizeSmall": {
+                        padding: "6.5px 14px",
+                    },
                 },
             }
         }

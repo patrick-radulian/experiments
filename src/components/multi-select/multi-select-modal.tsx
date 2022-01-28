@@ -23,13 +23,18 @@ export type MultiSelectModalProps = {
 }
 
 export default function MultiSelectModal(props: MultiSelectModalProps) {
+    const [optionsFilterValue, setOptionsFilterValue] = React.useState<string>("");
+    const [filteredOptions, setFilteredOptions] = React.useState<MultiSelectOptions | MultiSelectOptionGroups>(props.data);
+
     const { open, title, data, checkedOptions, handleToggle, handleClose } = props;
 
     const onChange = (option: MultiSelectOption) => () => handleToggle(option);
 
-    const filterData = React.useRef((data: MultiSelectOptionGroups | MultiSelectOptions) => {
+    const filterData = React.useCallback((data: MultiSelectOptionGroups | MultiSelectOptions) => {
         if (data instanceof MultiSelectOptions) {
             let newOptions = new MultiSelectOptions(data.getOptions().filter(option => option.label.toLowerCase().includes(optionsFilterValue.toLowerCase())));
+
+            console.log(newOptions);
 
             return newOptions;
         } else {
@@ -50,10 +55,7 @@ export default function MultiSelectModal(props: MultiSelectModalProps) {
 
             return newGroups;
         }
-    });
-
-    const [optionsFilterValue, setOptionsFilterValue] = React.useState<string>("");
-    const [filteredOptions, setFilteredOptions] = React.useState<MultiSelectOptions | MultiSelectOptionGroups>(filterData.current(data));
+    }, [optionsFilterValue]);
 
     const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setOptionsFilterValue(event.target.value);
@@ -76,8 +78,8 @@ export default function MultiSelectModal(props: MultiSelectModalProps) {
     }
 
     React.useEffect(() => {
-        setFilteredOptions(filterData.current(data));
-    }, [optionsFilterValue, data]);
+        setFilteredOptions(filterData(data));
+    }, [optionsFilterValue, data, filterData]);
 
     return (
         <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { MultiSelectForwardRef } from './multi-select';
+import { MultiSelectForwardRef } from '../multi-select/multi-select';
+import styles from "./multi-select-label.module.css";
 
 type MultiSelectLabelProps = {
     children: React.ReactChild | React.ReactChildren
@@ -10,7 +11,7 @@ const MultiSelectLabel = ({children, htmlFor}: MultiSelectLabelProps) => {
     const onClick = () => htmlFor.current?.handleOpen();
 
     return (
-        <label onClick={onClick}>
+        <label className={styles.label} onClick={onClick}>
             {children}
         </label>
     )

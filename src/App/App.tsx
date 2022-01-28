@@ -1,15 +1,14 @@
 import React from 'react';
-import styles from './App.module.css';
-import { ThemeProvider } from '@emotion/react';
-import { theme } from '../theming/Theme';
-import { Outlet } from 'react-router-dom';
 import AppHeader from './app-header/app-header';
+import { ThemeProvider } from '@emotion/react';
+import { AppTheme } from '../theming/Theme';
+import { Outlet } from 'react-router-dom';
+import styles from "./app.module.css";
 
-
-function App() {
+const App = () => {
     return (
         <React.StrictMode>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={AppTheme}>
                 <div className={styles.app}>
                     <AppHeader/>
 
