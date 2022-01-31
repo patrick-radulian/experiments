@@ -4,12 +4,12 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Checkbox, Grid, FormControlLabel, TextField, Box, InputAdornment, IconButton, Container } from "@mui/material";
+import { Checkbox, Grid, FormControlLabel, TextField, Box, InputAdornment, IconButton, Container, Typography } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import CloseIcon from '@mui/icons-material/Close';
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 import { MultiSelectOptions, MultiSelectOption } from "./multi-select-options";
-import { MultiSelectGroups, MultiSelectOptionGroups } from "./multi-select-option-groups";
+import { MultiSelectGroup, MultiSelectGroups, MultiSelectOptionGroups } from "./multi-select-option-groups";
 
 
 
@@ -17,8 +17,8 @@ export type MultiSelectModalProps = {
     open: boolean,
     title: string,
     data: MultiSelectOptions | MultiSelectOptionGroups,
-    checkedOptions: Array<MultiSelectOption>,
-    handleToggle: (option: MultiSelectOption) => void,
+    checkedOptions: Set<MultiSelectOption>,
+    handleToggle: (option: MultiSelectOption | Array<MultiSelectOption>) => void,
     handleClose: () => void
 }
 
@@ -29,6 +29,18 @@ export default function MultiSelectModal(props: MultiSelectModalProps) {
     const { open, title, data, checkedOptions, handleToggle, handleClose } = props;
 
     const onChange = (option: MultiSelectOption) => () => handleToggle(option);
+
+    const onChangeGroup = (group: MultiSelectGroup) => () => {
+        let allOptionsChecked = group.options.every(option => checkedOptions.has(option));
+
+        if (allOptionsChecked) {
+            handleToggle(group.options)
+        } else {
+            let uncheckedOptions: Array<MultiSelectOption> = group.options.filter(option => !checkedOptions.has(option));
+
+            handleToggle(uncheckedOptions);
+        }
+    }
 
     const filterData = React.useCallback((data: MultiSelectOptionGroups | MultiSelectOptions) => {
         if (data instanceof MultiSelectOptions) {
@@ -98,19 +110,22 @@ export default function MultiSelectModal(props: MultiSelectModalProps) {
                         filteredOptions.getOptionGroups().length > 0 ? (
                             filteredOptions.getOptionGroups().map(group => (
                                 <React.Fragment key={group.label}>
-                                    <Grid item xs={4}>{group.label}</Grid>
+                                    <Grid item xs={12}>
+                                        <Typography variant="body1" onClick={onChangeGroup(group)}>{group.label}</Typography>
+                                    </Grid>
 
                                     {group.options.map(option => (
                                         <Grid item xs={4} key={option.value} sx={{paddingLeft: 4}}>
                                             <FormControlLabel
                                                 control={
-                                                    <Checkbox checked={checkedOptions.indexOf(option) !== -1}
+                                                    <Checkbox checked={checkedOptions.has(option)}
                                                         onChange={onChange(option)}
                                                         tabIndex={-1}
                                                         name={option.value}
                                                         disableRipple
                                                     />
                                                 }
+                                                sx={{width: "100%", cursor: "default"}}
                                                 label={option.label}
                                             />
                                         </Grid>
@@ -129,7 +144,7 @@ export default function MultiSelectModal(props: MultiSelectModalProps) {
                                 <Grid item xs={4} key={option.value}>
                                     <FormControlLabel
                                         control={
-                                            <Checkbox checked={checkedOptions.indexOf(option) !== -1}
+                                            <Checkbox checked={checkedOptions.has(option)}
                                                 onChange={onChange(option)}
                                                 tabIndex={-1}
                                                 name={option.value}

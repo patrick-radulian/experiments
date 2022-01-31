@@ -20,7 +20,7 @@ export type MultiSelectProps = {
 const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({options, styles, fullWidth}, ref) => {
     const [open, setOpen] = React.useState(false);
     const [bodyFull, setBodyFull] = React.useState(false);
-    const [checkedOptions, setChecked] = React.useState<Array<MultiSelectOption>>([]);
+    const [checkedOptions, setChecked] = React.useState<Set<MultiSelectOption>>(new Set());
     const [numberOfVisibleChips, setNumberOfVisibleChips] = React.useState<number>(0);
 
     const multiSelectBodyLimiter = React.useRef<HTMLDivElement>(null);
@@ -30,14 +30,31 @@ const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const handleToggle = (option: MultiSelectOption) => {
-        const currentIndex = checkedOptions.indexOf(option);
-        const newChecked = [...checkedOptions];
+    const handleToggle = (options: MultiSelectOption | Array<MultiSelectOption>) => {
+        // const currentIndex = checkedOptions.indexOf(option);
+        // const newChecked = [...checkedOptions];
 
-        if (currentIndex === -1) {
-            newChecked.push(option);
+        // if (currentIndex === -1) {
+        //     newChecked.push(option);
+        // } else {
+        //     newChecked.splice(currentIndex, 1);
+        // }
+
+        let newOptions: Array<MultiSelectOption>;
+        const newChecked = new Set(checkedOptions);
+
+        if (!Array.isArray(options)) {
+            newOptions = Array(options);
         } else {
-            newChecked.splice(currentIndex, 1);
+            newOptions = options;
+        }
+
+        for (let option of newOptions) {
+            if (newChecked.has(option)) {
+                newChecked.delete(option);
+            } else {
+                newChecked.add(option);
+            }
         }
 
         setChecked(newChecked);
@@ -74,6 +91,8 @@ const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({
 
 
 
+
+
     /**
      * Next we run this side-effect - but only when checkedOptions changes - which determines whether the select
      * body is overflowing with chips, which means that we need to display the extra badge, indicating how
@@ -91,7 +110,7 @@ const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({
          * This value is then compared with the container's maximum available width for chips.
          */
 
-        if ((totalChipsWidth.current + (checkedOptions.length + 1) * 8) > multiSelectBodyLimiter.current!.offsetWidth) {
+        if ((totalChipsWidth.current + (checkedOptions.size + 1) * 8) > multiSelectBodyLimiter.current!.offsetWidth) {
             /**
              * If the collective width of chips, gaps and container margin exceed the container's available maximum width
              * for chips, we need to set 'bodyFull' to true to indicate that there are more options checked (and thus chips
@@ -110,6 +129,8 @@ const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({
 
 
     }, [checkedOptions]);
+
+
 
 
 
@@ -135,9 +156,13 @@ const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({
 
 
 
+
+
     const setChipsRef = (chip: HTMLDivElement | null, index: number) => {
         chips.current[index] = chip;
     }
+
+
 
 
 
@@ -146,13 +171,13 @@ const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({
             <div className={multiSelectStyles["multi-select"]} onClick={handleOpen}>
                 <div ref={multiSelectBodyLimiter} className={multiSelectStyles["multi-select-body-limiter"]}>
                     <div className={multiSelectStyles["multi-select-body"]}>
-                        {checkedOptions.map((option, index) => (
+                        {Array.from(checkedOptions).map((option, index) => (
                             <Chip className={multiSelectStyles["multi-select-chip"]} label={option.label} size="medium" key={option.value} ref={el => setChipsRef(el, index)}/>
                         ))}
                     </div>
 
                     <div className={multiSelectStyles["extras"]}>
-                        {bodyFull && <Chip label={`+ ${checkedOptions.length - numberOfVisibleChips}`} size="medium"/>}
+                        {bodyFull && <Chip label={`+ ${checkedOptions.size - numberOfVisibleChips}`} size="medium"/>}
                     </div>
                 </div>
 
