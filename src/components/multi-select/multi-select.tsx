@@ -1,6 +1,6 @@
 import React from "react";
 import multiSelectStyles from "./multi-select.module.css";
-import MultiSelectModal from "./multi-select-modal";
+import MultiSelectModal from "../multi-select-modal/multi-select-modal";
 import { Chip } from "@mui/material";
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import { MultiSelectOption, MultiSelectOptions } from "./multi-select-options";
