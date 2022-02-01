@@ -31,15 +31,6 @@ const MultiSelect = React.forwardRef<MultiSelectForwardRef, MultiSelectProps>(({
     const handleClose = () => setOpen(false);
 
     const handleToggle = (options: MultiSelectOption | Array<MultiSelectOption>) => {
-        // const currentIndex = checkedOptions.indexOf(option);
-        // const newChecked = [...checkedOptions];
-
-        // if (currentIndex === -1) {
-        //     newChecked.push(option);
-        // } else {
-        //     newChecked.splice(currentIndex, 1);
-        // }
-
         let newOptions: Array<MultiSelectOption>;
         const newChecked = new Set(checkedOptions);
 

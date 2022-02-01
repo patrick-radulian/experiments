@@ -126,7 +126,7 @@ export default function MultiSelectModal(props: MultiSelectModalProps) {
                                                     />
                                                 }
                                                 sx={{width: "100%", cursor: "default"}}
-                                                label={option.label}
+                                                label={<Typography sx={{overflow: "hidden", textOverflow: "ellipsis"}}>{option.label}</Typography>}
                                             />
                                         </Grid>
                                     ))}
