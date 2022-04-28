@@ -52,7 +52,7 @@ const Selects = () => {
 
     return (
         <Grid container justifyContent="center">
-            <Grid item lg={12}>
+            <Grid item xs={12}>
                 <Box>
                     <Paper>
                         <Grid container justifyContent="space-between" alignItems="center">

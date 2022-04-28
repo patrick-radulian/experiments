@@ -1,9 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
 export const AppTheme = createTheme({
-    typography: {
-        fontFamily: ["Rajdhani", "sans-serif"].join(",")
-    },
     palette: {
         mode: "light",
         primary: {
