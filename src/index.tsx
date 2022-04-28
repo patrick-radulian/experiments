@@ -18,7 +18,7 @@ ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<App/>}>
+                <Route path="/experiments" element={<App/>}>
                     <Route path="ui-experiments" element={<UIExperiments/>}/>
                     <Route path="ui-experiments/selects" element={<Selects/>}>
                         <Route path="new-group-few" element={<NewGroupFew/>}/>
